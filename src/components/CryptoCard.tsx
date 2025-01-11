@@ -109,36 +109,38 @@ export const CryptoCard = ({
         // Back of card
         <div className="relative h-full">
           {/* Background */}
-          <div className="absolute inset-0 bg-[#1A1F2C]" />
+          <div className="absolute inset-0 bg-[#0A0D14]" />
           
           {/* Content */}
-          <div className="relative z-10 h-full flex flex-col p-2">
-            <div className="flex items-center gap-2 mb-6">
-              <h3 className="text-white/90 text-base font-medium">Recovery Phrase</h3>
-              <span className="text-gray-400 text-sm">{mnemonicLength} words</span>
+          <div className="relative z-10 h-full flex flex-col p-3">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-white/90 text-sm font-medium">Recovery Phrase</h3>
+              <span className="text-gray-500 text-xs">{mnemonicLength} words</span>
             </div>
             
             <div className={cn(
-              "grid gap-y-4 gap-x-6 flex-1",
+              "grid gap-y-3 gap-x-4 flex-1",
               isVertical 
-                ? "grid-cols-2" 
+                ? mnemonicLength === 24 
+                  ? "grid-cols-2 text-[10px]" 
+                  : "grid-cols-2 text-xs"
                 : mnemonicLength === 24 
-                  ? "grid-cols-4" 
-                  : "grid-cols-2",
+                  ? "grid-cols-4 text-[10px]" 
+                  : "grid-cols-3 text-xs",
               "font-mono"
             )}>
               {mnemonicSpaces.map((num) => (
                 <div key={num} className="relative">
-                  <div className="absolute -left-4 text-gray-500 text-xs">{num}</div>
-                  <div className="w-full border-b border-gray-600">
+                  <div className="absolute -left-3 text-gray-600 text-[10px]">{num}</div>
+                  <div className="w-full border-b border-gray-800">
                     <span className="text-transparent select-none">________________</span>
                   </div>
                 </div>
               ))}
             </div>
             
-            <div className="mt-4 text-center">
-              <p className="text-gray-500 text-xs">Write your recovery phrase here and keep it safe</p>
+            <div className="mt-3 text-center">
+              <p className="text-gray-600 text-[9px]">Write your recovery phrase here and keep it safe</p>
             </div>
           </div>
         </div>
