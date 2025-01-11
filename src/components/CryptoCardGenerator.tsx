@@ -29,6 +29,7 @@ export const CryptoCardGenerator = () => {
   const [selectedCrypto, setSelectedCrypto] = useState(CRYPTOCURRENCIES[0]);
   const [address, setAddress] = useState("");
   const [isVertical, setIsVertical] = useState(false);
+  const [showBack, setShowBack] = useState(false);
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -73,13 +74,24 @@ export const CryptoCardGenerator = () => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 justify-end">
-            <Label htmlFor="vertical-mode" className="text-sm font-medium">Vertical Card</Label>
-            <Switch
-              id="vertical-mode"
-              checked={isVertical}
-              onCheckedChange={setIsVertical}
-            />
+          <div className="flex items-center space-x-6 justify-end">
+            <div className="flex items-center space-x-2">
+              <Label htmlFor="vertical-mode" className="text-sm font-medium">Vertical Card</Label>
+              <Switch
+                id="vertical-mode"
+                checked={isVertical}
+                onCheckedChange={setIsVertical}
+              />
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <Label htmlFor="show-back" className="text-sm font-medium">Show Back</Label>
+              <Switch
+                id="show-back"
+                checked={showBack}
+                onCheckedChange={setShowBack}
+              />
+            </div>
           </div>
         </div>
 
@@ -90,6 +102,7 @@ export const CryptoCardGenerator = () => {
             address={address || "Enter your wallet address above"}
             color={selectedCrypto.color}
             isVertical={isVertical}
+            showBack={showBack}
           />
         </div>
       </div>
