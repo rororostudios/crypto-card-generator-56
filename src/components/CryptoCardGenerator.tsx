@@ -30,6 +30,7 @@ export const CryptoCardGenerator = () => {
   const [address, setAddress] = useState("");
   const [isVertical, setIsVertical] = useState(false);
   const [showBack, setShowBack] = useState(false);
+  const [mnemonicLength, setMnemonicLength] = useState<12 | 24>(24);
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -76,6 +77,15 @@ export const CryptoCardGenerator = () => {
 
           <div className="flex items-center space-x-6 justify-end">
             <div className="flex items-center space-x-2">
+              <Label htmlFor="mnemonic-length" className="text-sm font-medium">24-word Phrase</Label>
+              <Switch
+                id="mnemonic-length"
+                checked={mnemonicLength === 24}
+                onCheckedChange={(checked) => setMnemonicLength(checked ? 24 : 12)}
+              />
+            </div>
+
+            <div className="flex items-center space-x-2">
               <Label htmlFor="vertical-mode" className="text-sm font-medium">Vertical Card</Label>
               <Switch
                 id="vertical-mode"
@@ -103,6 +113,7 @@ export const CryptoCardGenerator = () => {
             color={selectedCrypto.color}
             isVertical={isVertical}
             showBack={showBack}
+            mnemonicLength={mnemonicLength}
           />
         </div>
       </div>

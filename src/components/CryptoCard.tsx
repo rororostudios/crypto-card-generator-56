@@ -8,6 +8,7 @@ interface CryptoCardProps {
   color: string;
   isVertical?: boolean;
   showBack?: boolean;
+  mnemonicLength?: 12 | 24;
 }
 
 export const CryptoCard = ({ 
@@ -16,12 +17,13 @@ export const CryptoCard = ({
   address, 
   color, 
   isVertical = false,
-  showBack = false 
+  showBack = false,
+  mnemonicLength = 24
 }: CryptoCardProps) => {
   const logoUrl = `https://cryptologos.cc/logos/${name.toLowerCase().replace(' ', '-')}-${code.toLowerCase()}-logo.svg`;
   
-  // Generate 18 empty spaces for mnemonic phrase
-  const mnemonicSpaces = Array.from({ length: 18 }, (_, i) => i + 1);
+  // Generate spaces for mnemonic phrase based on selected length
+  const mnemonicSpaces = Array.from({ length: mnemonicLength }, (_, i) => i + 1);
 
   return (
     <div className={cn(
@@ -114,12 +116,19 @@ export const CryptoCard = ({
           
           {/* Content */}
           <div className="relative z-10 h-full flex flex-col">
-            <h3 className="text-white/80 text-sm font-semibold mb-3">Recovery Phrase</h3>
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="text-white/80 text-sm font-semibold">Recovery Phrase</h3>
+              <span className="text-white/60 text-xs">{mnemonicLength} words</span>
+            </div>
             
             <div className={cn(
-              "grid gap-2 h-full",
-              isVertical ? "grid-cols-2" : "grid-cols-3",
-              "text-[10px] font-mono"
+              "grid gap-2 flex-1",
+              isVertical 
+                ? "grid-cols-2 text-[10px]" 
+                : mnemonicLength === 24 
+                  ? "grid-cols-4 text-[9px]" 
+                  : "grid-cols-3 text-[10px]",
+              "font-mono"
             )}>
               {mnemonicSpaces.map((num) => (
                 <div key={num} className="relative">
@@ -131,7 +140,7 @@ export const CryptoCard = ({
               ))}
             </div>
             
-            <div className="mt-auto pt-2">
+            <div className="mt-2">
               <p className="text-white/40 text-[8px]">Write your recovery phrase here and keep it safe</p>
             </div>
           </div>
