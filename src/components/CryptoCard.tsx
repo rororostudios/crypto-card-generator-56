@@ -22,7 +22,6 @@ export const CryptoCard = ({
 }: CryptoCardProps) => {
   const logoUrl = `https://cryptologos.cc/logos/${name.toLowerCase().replace(' ', '-')}-${code.toLowerCase()}-logo.svg`;
   
-  // Generate spaces for mnemonic phrase based on selected length
   const mnemonicSpaces = Array.from({ length: mnemonicLength }, (_, i) => i + 1);
 
   return (
@@ -50,8 +49,9 @@ export const CryptoCard = ({
             "relative flex h-full z-10",
             isVertical ? "flex-col space-y-4" : "justify-between items-start"
           )}>
+            {/* Left side content */}
             <div className={cn(
-              "flex flex-col",
+              "flex flex-col relative z-20", // Added z-20 to ensure content stays above QR code
               isVertical ? "items-center" : "justify-between h-full"
             )}>
               <div className={cn(
@@ -64,7 +64,6 @@ export const CryptoCard = ({
                     alt={`${name} logo`}
                     className="w-6 h-6"
                     onError={(e) => {
-                      // Fallback to colored dot if logo fails to load
                       e.currentTarget.style.display = 'none';
                       e.currentTarget.nextElementSibling?.classList.remove('hidden');
                     }}
@@ -83,11 +82,11 @@ export const CryptoCard = ({
               </div>
             </div>
             
+            {/* QR Code */}
             <div className={cn(
-              "relative group",
+              "relative z-10", // Reduced z-index to be below the text
               isVertical ? "mx-auto" : ""
             )}>
-              {/* QR Code container with glass effect */}
               <div className="bg-white/90 backdrop-blur-sm p-2 rounded-xl 
                            shadow-[0_0_15px_rgba(0,0,0,0.1)]
                            transition-transform duration-300
@@ -106,7 +105,6 @@ export const CryptoCard = ({
           </div>
         </>
       ) : (
-        // Back of card
         <div className="relative h-full">
           {/* Content */}
           <div className="relative z-10 h-full flex flex-col px-1">
