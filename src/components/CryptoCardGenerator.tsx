@@ -34,13 +34,13 @@ export const CryptoCardGenerator = () => {
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="space-y-4">
-          <h1 className="text-4xl font-bold text-center mb-8">
+          <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
             Crypto Backup Card Generator
           </h1>
           
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="crypto">Cryptocurrency</Label>
+              <Label htmlFor="crypto" className="text-sm font-medium">Cryptocurrency</Label>
               <Select
                 value={selectedCrypto.code}
                 onValueChange={(value) => {
@@ -48,7 +48,7 @@ export const CryptoCardGenerator = () => {
                   if (crypto) setSelectedCrypto(crypto);
                 }}
               >
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a cryptocurrency" />
                 </SelectTrigger>
                 <SelectContent>
@@ -62,18 +62,19 @@ export const CryptoCardGenerator = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="address">Wallet Address</Label>
+              <Label htmlFor="address" className="text-sm font-medium">Wallet Address</Label>
               <Input
                 id="address"
                 placeholder="Enter wallet address"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
+                className="font-mono"
               />
             </div>
           </div>
 
           <div className="flex items-center space-x-2 justify-end">
-            <Label htmlFor="vertical-mode">Vertical Card</Label>
+            <Label htmlFor="vertical-mode" className="text-sm font-medium">Vertical Card</Label>
             <Switch
               id="vertical-mode"
               checked={isVertical}
@@ -82,7 +83,7 @@ export const CryptoCardGenerator = () => {
           </div>
         </div>
 
-        <div className="flex justify-center p-8 bg-gray-100 rounded-xl">
+        <div className="flex justify-center p-12 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl shadow-inner">
           <CryptoCard
             name={selectedCrypto.name}
             code={selectedCrypto.code}
