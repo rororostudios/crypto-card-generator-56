@@ -108,14 +108,14 @@ export const CryptoCard = ({
       ) : (
         // Back of card
         <div className="relative h-full">
-          {/* Background */}
-          <div className="absolute inset-0 bg-[#0A0D14]" />
+          {/* Background with gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-800/80 to-gray-900/90 backdrop-blur-xl" />
           
           {/* Content */}
           <div className="relative z-10 h-full flex flex-col p-3">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-white/90 text-sm font-medium">Recovery Phrase</h3>
-              <span className="text-gray-500 text-xs">{mnemonicLength} words</span>
+              <span className="text-gray-400 text-xs">{mnemonicLength} words</span>
             </div>
             
             <div className={cn(
@@ -131,8 +131,8 @@ export const CryptoCard = ({
             )}>
               {mnemonicSpaces.map((num) => (
                 <div key={num} className="relative">
-                  <div className="absolute -left-3 text-gray-600 text-[10px]">{num}</div>
-                  <div className="w-full border-b border-gray-800">
+                  <div className="absolute -left-3 text-gray-500 text-[10px]">{num}</div>
+                  <div className="w-full border-b border-gray-700/50">
                     <span className="text-transparent select-none">________________</span>
                   </div>
                 </div>
@@ -140,7 +140,7 @@ export const CryptoCard = ({
             </div>
             
             <div className="mt-3 text-center">
-              <p className="text-gray-600 text-[9px]">Write your recovery phrase here and keep it safe</p>
+              <p className="text-gray-400 text-[9px]">Write your recovery phrase here and keep it safe</p>
             </div>
           </div>
         </div>
