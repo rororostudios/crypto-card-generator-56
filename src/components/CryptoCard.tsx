@@ -10,6 +10,8 @@ interface CryptoCardProps {
 }
 
 export const CryptoCard = ({ name, code, address, color, isVertical = false }: CryptoCardProps) => {
+  const logoUrl = `https://cryptologos.cc/logos/${name.toLowerCase().replace(' ', '-')}-${code.toLowerCase()}-logo.svg`;
+
   return (
     <div className={cn(
       "rounded-xl p-6 relative overflow-hidden transition-all duration-300",
@@ -40,11 +42,21 @@ export const CryptoCard = ({ name, code, address, color, isVertical = false }: C
             "relative",
             isVertical ? "text-center" : ""
           )}>
-            <h2 className="text-white font-bold text-2xl mb-1 tracking-tight">{name}</h2>
-            <div className="flex items-center gap-2 justify-center">
-              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
-              <p className="text-gray-400 text-sm font-mono tracking-wider">{code}</p>
+            <div className="flex items-center gap-3 mb-2">
+              <img 
+                src={logoUrl}
+                alt={`${name} logo`}
+                className="w-6 h-6"
+                onError={(e) => {
+                  // Fallback to colored dot if logo fails to load
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+              <div className="w-2 h-2 rounded-full hidden" style={{ backgroundColor: color }} />
+              <h2 className="text-white font-bold text-2xl tracking-tight">{name}</h2>
             </div>
+            <p className="text-gray-400 text-sm font-mono tracking-wider">{code}</p>
           </div>
           
           <div className={cn(
