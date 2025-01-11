@@ -35,13 +35,10 @@ export const CryptoCard = ({
     )}>
       {!showBack ? (
         <>
-          {/* Front of card */}
-          {/* Background effects */}
           <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_120%,_var(--color),_transparent_70%)]" 
                style={{ "--color": color } as any} />
           <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-transparent" />
           
-          {/* Decorative elements */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-full -translate-y-16 translate-x-16" />
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-white/5 to-transparent rounded-full translate-y-12 -translate-x-12" />
           
@@ -49,9 +46,8 @@ export const CryptoCard = ({
             "relative flex h-full z-10",
             isVertical ? "flex-col space-y-4" : "justify-between items-start"
           )}>
-            {/* Left side content */}
             <div className={cn(
-              "flex flex-col relative z-20", // Added z-20 to ensure content stays above QR code
+              "flex flex-col relative z-20",
               isVertical ? "items-center" : "justify-between h-full"
             )}>
               <div className={cn(
@@ -82,9 +78,8 @@ export const CryptoCard = ({
               </div>
             </div>
             
-            {/* QR Code */}
             <div className={cn(
-              "relative z-10", // Reduced z-index to be below the text
+              "relative z-10",
               isVertical ? "mx-auto" : ""
             )}>
               <div className="bg-white/90 backdrop-blur-sm p-2 rounded-xl 
@@ -106,27 +101,26 @@ export const CryptoCard = ({
         </>
       ) : (
         <div className="relative h-full">
-          {/* Content */}
-          <div className="relative z-10 h-full flex flex-col px-1">
-            <div className="flex items-center justify-between mb-0.5">
-              <h3 className="text-white/90 text-xs font-medium">Recovery Phrase</h3>
-              <span className="text-gray-400 text-[10px]">{mnemonicLength} words</span>
+          <div className="relative z-10 h-full flex flex-col">
+            <div className="flex items-center justify-between mb-1 px-1">
+              <h3 className="text-white/90 text-[11px] font-medium">Recovery Phrase</h3>
+              <span className="text-gray-400 text-[9px]">{mnemonicLength} words</span>
             </div>
             
             <div className={cn(
-              "grid gap-y-1.5 gap-x-3 flex-1 mt-0.5",
+              "grid gap-y-[5px] gap-x-3 flex-1",
               isVertical 
                 ? mnemonicLength === 24 
-                  ? "grid-cols-2 text-[10px]" 
-                  : "grid-cols-2 text-xs"
+                  ? "grid-cols-2 text-[9px] mt-0" 
+                  : "grid-cols-2 text-xs mt-1"
                 : mnemonicLength === 24 
-                  ? "grid-cols-4 text-[10px]" 
-                  : "grid-cols-3 text-xs",
+                  ? "grid-cols-4 text-[10px] mt-1" 
+                  : "grid-cols-3 text-xs mt-2",
               "font-mono"
             )}>
               {mnemonicSpaces.map((num) => (
                 <div key={num} className="relative">
-                  <div className="absolute -left-2.5 text-gray-500 text-[9px]">{num}</div>
+                  <div className="absolute -left-2.5 text-gray-500 text-[8px]">{num}</div>
                   <div className="w-full border-b border-gray-700/30">
                     <span className="text-transparent select-none">________________</span>
                   </div>
@@ -134,8 +128,8 @@ export const CryptoCard = ({
               ))}
             </div>
             
-            <div className="mt-0.5 text-center">
-              <p className="text-gray-400 text-[8px]">Write your recovery phrase here and keep it safe</p>
+            <div className="mt-1 text-center">
+              <p className="text-gray-400 text-[7px]">Write your recovery phrase here and keep it safe</p>
             </div>
           </div>
         </div>
