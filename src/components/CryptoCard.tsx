@@ -79,20 +79,20 @@ export const CryptoCard = ({
             </div>
             
             <div className={cn(
-              "relative z-10",
-              isVertical ? "mx-auto" : ""
+              "relative z-10 mt-auto",
+              isVertical ? "mx-auto" : "ml-auto"
             )}>
-              <div className="bg-white/90 backdrop-blur-sm p-2 rounded-xl 
+              <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-xl 
                            shadow-[0_0_15px_rgba(0,0,0,0.1)]
                            transition-transform duration-300
                            group-hover:scale-[1.02]">
                 <QRCodeSVG
                   value={address}
-                  size={isVertical ? 140 : 120}
+                  size={isVertical ? 110 : 100}
                   level="L"
                   className={cn(
                     "transition-all duration-300",
-                    isVertical ? "w-[140px] h-[140px]" : "w-[120px] h-[120px]"
+                    isVertical ? "w-[110px] h-[110px]" : "w-[100px] h-[100px]"
                   )}
                 />
               </div>
