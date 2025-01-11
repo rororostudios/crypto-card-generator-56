@@ -109,14 +109,14 @@ export const CryptoCard = ({
         // Back of card
         <div className="relative h-full">
           {/* Content */}
-          <div className="relative z-10 h-full flex flex-col px-2">
-            <div className="flex items-center justify-between mb-1">
-              <h3 className="text-white/90 text-sm font-medium pl-1">Recovery Phrase</h3>
-              <span className="text-gray-400 text-xs pr-1">{mnemonicLength} words</span>
+          <div className="relative z-10 h-full flex flex-col px-1">
+            <div className="flex items-center justify-between mb-0.5">
+              <h3 className="text-white/90 text-xs font-medium">Recovery Phrase</h3>
+              <span className="text-gray-400 text-[10px]">{mnemonicLength} words</span>
             </div>
             
             <div className={cn(
-              "grid gap-y-2 gap-x-4 flex-1",
+              "grid gap-y-1.5 gap-x-3 flex-1 mt-0.5",
               isVertical 
                 ? mnemonicLength === 24 
                   ? "grid-cols-2 text-[10px]" 
@@ -128,7 +128,7 @@ export const CryptoCard = ({
             )}>
               {mnemonicSpaces.map((num) => (
                 <div key={num} className="relative">
-                  <div className="absolute -left-3 text-gray-500 text-[10px]">{num}</div>
+                  <div className="absolute -left-2.5 text-gray-500 text-[9px]">{num}</div>
                   <div className="w-full border-b border-gray-700/30">
                     <span className="text-transparent select-none">________________</span>
                   </div>
@@ -136,8 +136,8 @@ export const CryptoCard = ({
               ))}
             </div>
             
-            <div className="mt-1 text-center">
-              <p className="text-gray-400 text-[9px]">Write your recovery phrase here and keep it safe</p>
+            <div className="mt-0.5 text-center">
+              <p className="text-gray-400 text-[8px]">Write your recovery phrase here and keep it safe</p>
             </div>
           </div>
         </div>
