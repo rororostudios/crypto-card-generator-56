@@ -6,36 +6,54 @@ interface CryptoCardProps {
   code: string;
   address: string;
   color: string;
+  isVertical?: boolean;
 }
 
-export const CryptoCard = ({ name, code, address, color }: CryptoCardProps) => {
+export const CryptoCard = ({ name, code, address, color, isVertical = false }: CryptoCardProps) => {
   return (
     <div className={cn(
-      "w-[85.60mm] h-[53.98mm] rounded-xl p-4 relative overflow-hidden",
+      "rounded-xl p-4 relative overflow-hidden transition-transform hover:scale-105",
       "bg-gradient-to-br from-gray-900 to-gray-800",
-      "shadow-xl transition-transform hover:scale-105"
+      "shadow-xl",
+      isVertical ? "w-[53.98mm] h-[85.60mm]" : "w-[85.60mm] h-[53.98mm]"
     )}>
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_120%,_var(--color),_transparent_70%)]" 
            style={{ "--color": color } as any} />
       
-      <div className="flex justify-between items-start h-full">
-        <div className="flex flex-col justify-between h-full">
-          <div>
+      <div className={cn(
+        "flex h-full",
+        isVertical ? "flex-col space-y-4" : "justify-between items-start"
+      )}>
+        <div className={cn(
+          "flex flex-col",
+          isVertical ? "items-center" : "justify-between h-full"
+        )}>
+          <div className={cn(
+            isVertical ? "text-center" : ""
+          )}>
             <h2 className="text-white font-bold text-xl mb-1">{name}</h2>
             <p className="text-gray-400 text-sm font-mono">{code}</p>
           </div>
           
-          <div className="w-full max-w-[180px] break-all">
+          <div className={cn(
+            "break-all",
+            isVertical ? "w-full text-center mt-auto" : "w-full max-w-[180px]"
+          )}>
             <p className="text-gray-400 text-[8px] font-mono">{address}</p>
           </div>
         </div>
         
-        <div className="bg-white p-1 rounded-lg">
+        <div className={cn(
+          "bg-white p-1 rounded-lg",
+          isVertical ? "mx-auto" : ""
+        )}>
           <QRCodeSVG
             value={address}
-            size={120}
+            size={isVertical ? 140 : 120}
             level="L"
-            className="w-[120px] h-[120px]"
+            className={cn(
+              isVertical ? "w-[140px] h-[140px]" : "w-[120px] h-[120px]"
+            )}
           />
         </div>
       </div>

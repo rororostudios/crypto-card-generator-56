@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 const CRYPTOCURRENCIES = [
   { name: "Bitcoin", code: "BTC", color: "#F7931A" },
@@ -27,6 +28,7 @@ const CRYPTOCURRENCIES = [
 export const CryptoCardGenerator = () => {
   const [selectedCrypto, setSelectedCrypto] = useState(CRYPTOCURRENCIES[0]);
   const [address, setAddress] = useState("");
+  const [isVertical, setIsVertical] = useState(false);
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -69,6 +71,15 @@ export const CryptoCardGenerator = () => {
               />
             </div>
           </div>
+
+          <div className="flex items-center space-x-2 justify-end">
+            <Label htmlFor="vertical-mode">Vertical Card</Label>
+            <Switch
+              id="vertical-mode"
+              checked={isVertical}
+              onCheckedChange={setIsVertical}
+            />
+          </div>
         </div>
 
         <div className="flex justify-center p-8 bg-gray-100 rounded-xl">
@@ -77,6 +88,7 @@ export const CryptoCardGenerator = () => {
             code={selectedCrypto.code}
             address={address || "Enter your wallet address above"}
             color={selectedCrypto.color}
+            isVertical={isVertical}
           />
         </div>
       </div>
