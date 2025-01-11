@@ -20,8 +20,8 @@ export const CryptoCard = ({
 }: CryptoCardProps) => {
   const logoUrl = `https://cryptologos.cc/logos/${name.toLowerCase().replace(' ', '-')}-${code.toLowerCase()}-logo.svg`;
   
-  // Generate 24 empty spaces for mnemonic phrase
-  const mnemonicSpaces = Array.from({ length: 24 }, (_, i) => i + 1);
+  // Generate 18 empty spaces for mnemonic phrase
+  const mnemonicSpaces = Array.from({ length: 18 }, (_, i) => i + 1);
 
   return (
     <div className={cn(
@@ -118,7 +118,7 @@ export const CryptoCard = ({
             
             <div className={cn(
               "grid gap-2 h-full",
-              isVertical ? "grid-cols-2" : "grid-cols-4",
+              isVertical ? "grid-cols-2" : "grid-cols-3",
               "text-[10px] font-mono"
             )}>
               {mnemonicSpaces.map((num) => (
