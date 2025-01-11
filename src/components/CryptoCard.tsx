@@ -109,14 +109,14 @@ export const CryptoCard = ({
         // Back of card
         <div className="relative h-full">
           {/* Content */}
-          <div className="relative z-10 h-full flex flex-col px-2 pt-1">
-            <div className="flex items-center justify-between mb-2">
+          <div className="relative z-10 h-full flex flex-col px-2">
+            <div className="flex items-center justify-between mb-1">
               <h3 className="text-white/90 text-sm font-medium pl-1">Recovery Phrase</h3>
               <span className="text-gray-400 text-xs pr-1">{mnemonicLength} words</span>
             </div>
             
             <div className={cn(
-              "grid gap-y-2.5 gap-x-4 flex-1",
+              "grid gap-y-2 gap-x-4 flex-1",
               isVertical 
                 ? mnemonicLength === 24 
                   ? "grid-cols-2 text-[10px]" 
@@ -136,7 +136,7 @@ export const CryptoCard = ({
               ))}
             </div>
             
-            <div className="mt-2 text-center">
+            <div className="mt-1 text-center">
               <p className="text-gray-400 text-[9px]">Write your recovery phrase here and keep it safe</p>
             </div>
           </div>
