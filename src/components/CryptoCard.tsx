@@ -44,45 +44,33 @@ export const CryptoCard = ({
           
           <div className={cn(
             "relative flex h-full z-10",
-            isVertical ? "flex-col space-y-4" : "items-start"
+            isVertical ? "flex-col" : "items-start justify-between"
           )}>
-            <div className={cn(
-              "flex flex-col relative z-20",
-              isVertical ? "items-center w-full" : "",
-              "flex-1 max-w-[60%]"
-            )}>
-              <div className={cn(
-                "relative",
-                isVertical ? "text-center" : ""
-              )}>
-                <div className="flex items-center gap-3 mb-2">
-                  <img 
-                    src={logoUrl}
-                    alt={`${name} logo`}
-                    className="w-6 h-6"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                    }}
-                  />
-                  <div className="w-2 h-2 rounded-full hidden" style={{ backgroundColor: color }} />
-                  <h2 className="text-white font-bold text-2xl tracking-tight">{name}</h2>
-                </div>
-                <p className="text-gray-400 text-sm font-mono tracking-wider">{code}</p>
+            <div className="flex flex-col relative z-20">
+              <div className="flex items-center gap-3 mb-2">
+                <img 
+                  src={logoUrl}
+                  alt={`${name} logo`}
+                  className="w-6 h-6"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                  }}
+                />
+                <div className="w-2 h-2 rounded-full hidden" style={{ backgroundColor: color }} />
+                <h2 className="text-white font-bold text-2xl tracking-tight">{name}</h2>
               </div>
-              
-              <div className={cn(
-                "break-all mt-2",
-                isVertical ? "w-full text-center px-2" : "max-w-[80px] text-right"
-              )}>
-                <p className="text-gray-400 text-[8px] font-mono leading-tight">{address}</p>
-              </div>
+              <p className="text-gray-400 text-sm font-mono tracking-wider">{code}</p>
             </div>
             
             <div className={cn(
               "relative z-10",
-              isVertical ? "mx-auto mt-auto" : "ml-auto self-end"
+              isVertical ? "mt-auto" : ""
             )}>
+              <div className="break-all mb-2 text-center" style={{ width: isVertical ? '90px' : '80px' }}>
+                <p className="text-gray-400 text-[8px] font-mono leading-tight">{address}</p>
+              </div>
+              
               <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-lg
                            shadow-[0_0_15px_rgba(0,0,0,0.1)]
                            transition-transform duration-300
