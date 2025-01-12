@@ -73,7 +73,7 @@ export const CryptoCard = ({
               
               <div className={cn(
                 "break-all mt-2",
-                isVertical ? "w-full text-center px-2" : ""
+                isVertical ? "w-full text-center px-2" : "max-w-[80px] text-right"
               )}>
                 <p className="text-gray-400 text-[8px] font-mono leading-tight">{address}</p>
               </div>
