@@ -67,8 +67,14 @@ export const CryptoCard = ({
               "relative z-10",
               isVertical ? "mt-auto" : ""
             )}>
-              <div className="break-all mb-2 text-center" style={{ width: isVertical ? '90px' : '80px' }}>
-                <p className="text-gray-400 text-[8px] font-mono leading-tight">{address}</p>
+              <div className="flex flex-col items-center mb-2">
+                <div style={{ width: isVertical ? '90px' : '80px' }}>
+                  <p className="text-gray-400 text-[8px] font-mono leading-tight break-all">
+                    {address.slice(0, address.length / 2)}
+                    <br />
+                    {address.slice(address.length / 2)}
+                  </p>
+                </div>
               </div>
               
               <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-lg
