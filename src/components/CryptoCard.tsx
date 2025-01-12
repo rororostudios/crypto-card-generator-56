@@ -68,11 +68,11 @@ export const CryptoCard = ({
               isVertical ? "mt-auto" : ""
             )}>
               <div className="flex flex-col items-center mb-2">
-                <div style={{ width: isVertical ? '90px' : '80px' }}>
+                <div style={{ width: isVertical ? '110px' : '100px' }}>
                   <p className="text-gray-400 text-[8px] font-mono leading-tight break-all">
-                    {address.slice(0, address.length / 2)}
+                    {address.slice(0, Math.ceil(address.length / 2))}
                     <br />
-                    {address.slice(address.length / 2)}
+                    {address.slice(Math.ceil(address.length / 2))}
                   </p>
                 </div>
               </div>
