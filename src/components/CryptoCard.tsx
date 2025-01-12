@@ -44,11 +44,12 @@ export const CryptoCard = ({
           
           <div className={cn(
             "relative flex h-full z-10",
-            isVertical ? "flex-col space-y-4" : "justify-between items-start"
+            isVertical ? "flex-col space-y-4" : "items-start"
           )}>
             <div className={cn(
               "flex flex-col relative z-20",
-              isVertical ? "items-center" : "justify-between h-full"
+              isVertical ? "items-center" : "",
+              "flex-1 max-w-[60%]"
             )}>
               <div className={cn(
                 "relative",
@@ -72,27 +73,27 @@ export const CryptoCard = ({
               
               <div className={cn(
                 "break-all mt-2",
-                isVertical ? "w-full text-center mt-auto" : "w-full max-w-[180px]"
+                isVertical ? "w-full text-center mt-auto" : ""
               )}>
                 <p className="text-gray-400 text-[8px] font-mono leading-tight">{address}</p>
               </div>
             </div>
             
             <div className={cn(
-              "relative z-10 mt-auto",
-              isVertical ? "mx-auto" : "ml-auto"
+              "relative z-10",
+              isVertical ? "mx-auto mt-auto" : "ml-auto self-end"
             )}>
-              <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-xl 
+              <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-lg
                            shadow-[0_0_15px_rgba(0,0,0,0.1)]
                            transition-transform duration-300
                            group-hover:scale-[1.02]">
                 <QRCodeSVG
                   value={address}
-                  size={isVertical ? 110 : 100}
+                  size={isVertical ? 90 : 80}
                   level="L"
                   className={cn(
                     "transition-all duration-300",
-                    isVertical ? "w-[110px] h-[110px]" : "w-[100px] h-[100px]"
+                    isVertical ? "w-[90px] h-[90px]" : "w-[80px] h-[80px]"
                   )}
                 />
               </div>
