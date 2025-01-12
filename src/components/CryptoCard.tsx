@@ -64,11 +64,14 @@ export const CryptoCard = ({
             </div>
             
             <div className={cn(
-              "relative z-10",
+              "relative z-10 flex flex-col items-center",
               isVertical ? "mt-auto" : ""
             )}>
               <div className="flex flex-col items-center mb-2">
-                <div style={{ width: isVertical ? '110px' : '100px' }}>
+                <div className={cn(
+                  "text-center",
+                  isVertical ? "w-[110px]" : "w-[100px]"
+                )}>
                   <p className="text-gray-400 text-[8px] font-mono leading-tight break-all">
                     {address.slice(0, Math.ceil(address.length / 2))}
                     <br />
@@ -77,7 +80,7 @@ export const CryptoCard = ({
                 </div>
               </div>
               
-              <div className="bg-white/90 backdrop-blur-sm rounded-lg inline-flex items-center justify-center p-2
+              <div className="bg-white/90 backdrop-blur-sm rounded-lg p-2
                            shadow-[0_0_15px_rgba(0,0,0,0.1)]
                            transition-transform duration-300
                            group-hover:scale-[1.02]">
