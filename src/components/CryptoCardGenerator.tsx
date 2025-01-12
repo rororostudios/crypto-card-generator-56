@@ -37,42 +37,37 @@ export const CryptoCardGenerator = () => {
   const [mnemonicLength, setMnemonicLength] = useState<12 | 24>(24);
   const { toast } = useToast();
 
-  // Pre-fetch all logos when component mounts
+  // Fetch logo for the selected cryptocurrency
   useEffect(() => {
-    const fetchLogo = async (crypto: typeof CRYPTOCURRENCIES[0]) => {
-      const logoUrl = `https://cryptologos.cc/logos/${crypto.name.toLowerCase().replace(' ', '-')}-${crypto.code.toLowerCase()}-logo.svg`;
+    const fetchLogo = async () => {
+      // If logo is already cached, don't fetch again
+      if (logoCache[selectedCrypto.code]) {
+        return;
+      }
+
+      const logoUrl = `https://cryptologos.cc/logos/${selectedCrypto.name.toLowerCase().replace(' ', '-')}-${selectedCrypto.code.toLowerCase()}-logo.svg`;
       
       try {
-        // Always try no-cors mode first since we know the API has CORS restrictions
-        const response = await fetch(logoUrl, { mode: 'no-cors' });
+        // Always use no-cors mode since we know the API has CORS restrictions
+        await fetch(logoUrl, { mode: 'no-cors' });
         // Since we can't access the response content in no-cors mode,
         // we'll use the direct URL
-        logoCache[crypto.code] = logoUrl;
+        logoCache[selectedCrypto.code] = logoUrl;
       } catch (error) {
-        console.warn(`Error fetching logo for ${crypto.name}:`, error);
+        console.warn(`Error fetching logo for ${selectedCrypto.name}:`, error);
         // Store the URL directly as fallback
-        logoCache[crypto.code] = logoUrl;
-      }
-    };
-
-    const preFetchLogos = async () => {
-      const fetchPromises = CRYPTOCURRENCIES.map(crypto => fetchLogo(crypto));
-
-      try {
-        await Promise.all(fetchPromises);
-      } catch (error) {
+        logoCache[selectedCrypto.code] = logoUrl;
+        
         toast({
           title: "Warning",
-          description: "Some cryptocurrency logos couldn't be loaded",
+          description: `Could not load logo for ${selectedCrypto.name}`,
           variant: "destructive",
         });
       }
     };
 
-    preFetchLogos();
-
-    // No cleanup needed since we're not creating blob URLs anymore
-  }, []);
+    fetchLogo();
+  }, [selectedCrypto, toast]);
 
   return (
     <div className="container mx-auto py-8 px-4">
