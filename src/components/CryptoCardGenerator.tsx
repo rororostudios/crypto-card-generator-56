@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CryptoCard } from "./CryptoCard";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/components/ui/use-toast";
 
 const CRYPTOCURRENCIES = [
   { name: "Bitcoin", code: "BTC", color: "#F7931A" },
@@ -25,12 +26,54 @@ const CRYPTOCURRENCIES = [
   { name: "Chainlink", code: "LINK", color: "#2A5ADA" },
 ];
 
+// Cache object to store pre-fetched logo URLs
+const logoCache: { [key: string]: string } = {};
+
 export const CryptoCardGenerator = () => {
   const [selectedCrypto, setSelectedCrypto] = useState(CRYPTOCURRENCIES[0]);
   const [address, setAddress] = useState("");
   const [isVertical, setIsVertical] = useState(false);
   const [showBack, setShowBack] = useState(false);
   const [mnemonicLength, setMnemonicLength] = useState<12 | 24>(24);
+  const { toast } = useToast();
+
+  // Pre-fetch all logos when component mounts
+  useEffect(() => {
+    const preFetchLogos = async () => {
+      const fetchPromises = CRYPTOCURRENCIES.map(async (crypto) => {
+        const logoUrl = `https://cryptologos.cc/logos/${crypto.name.toLowerCase().replace(' ', '-')}-${crypto.code.toLowerCase()}-logo.svg`;
+        
+        try {
+          const response = await fetch(logoUrl);
+          if (response.ok) {
+            const blob = await response.blob();
+            logoCache[crypto.code] = URL.createObjectURL(blob);
+          } else {
+            console.warn(`Failed to fetch logo for ${crypto.name}`);
+          }
+        } catch (error) {
+          console.warn(`Error fetching logo for ${crypto.name}:`, error);
+        }
+      });
+
+      try {
+        await Promise.all(fetchPromises);
+      } catch (error) {
+        toast({
+          title: "Warning",
+          description: "Some cryptocurrency logos couldn't be loaded",
+          variant: "destructive",
+        });
+      }
+    };
+
+    preFetchLogos();
+
+    // Cleanup function to revoke object URLs
+    return () => {
+      Object.values(logoCache).forEach(url => URL.revokeObjectURL(url));
+    };
+  }, []);
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -114,6 +157,7 @@ export const CryptoCardGenerator = () => {
             isVertical={isVertical}
             showBack={showBack}
             mnemonicLength={mnemonicLength}
+            logoUrl={logoCache[selectedCrypto.code]}
           />
         </div>
       </div>

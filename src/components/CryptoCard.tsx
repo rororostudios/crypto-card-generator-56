@@ -9,6 +9,7 @@ interface CryptoCardProps {
   isVertical?: boolean;
   showBack?: boolean;
   mnemonicLength?: 12 | 24;
+  logoUrl?: string;
 }
 
 export const CryptoCard = ({ 
@@ -18,9 +19,10 @@ export const CryptoCard = ({
   color, 
   isVertical = false,
   showBack = false,
-  mnemonicLength = 24
+  mnemonicLength = 24,
+  logoUrl
 }: CryptoCardProps) => {
-  const logoUrl = `https://cryptologos.cc/logos/${name.toLowerCase().replace(' ', '-')}-${code.toLowerCase()}-logo.svg`;
+  const fallbackLogoUrl = `https://cryptologos.cc/logos/${name.toLowerCase().replace(' ', '-')}-${code.toLowerCase()}-logo.svg`;
   
   const mnemonicSpaces = Array.from({ length: mnemonicLength }, (_, i) => i + 1);
 
@@ -49,7 +51,7 @@ export const CryptoCard = ({
             <div className="flex flex-col relative z-20">
               <div className="flex items-center gap-3 mb-2">
                 <img 
-                  src={logoUrl}
+                  src={logoUrl || fallbackLogoUrl}
                   alt={`${name} logo`}
                   className="w-6 h-6"
                   onError={(e) => {
