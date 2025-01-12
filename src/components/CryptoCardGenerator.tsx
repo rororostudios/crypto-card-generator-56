@@ -44,15 +44,22 @@ export const CryptoCardGenerator = () => {
         const logoUrl = `https://cryptologos.cc/logos/${crypto.name.toLowerCase().replace(' ', '-')}-${crypto.code.toLowerCase()}-logo.svg`;
         
         try {
+          // First try with regular fetch
           const response = await fetch(logoUrl);
           if (response.ok) {
             const blob = await response.blob();
             logoCache[crypto.code] = URL.createObjectURL(blob);
           } else {
-            console.warn(`Failed to fetch logo for ${crypto.name}`);
+            // If regular fetch fails, try with no-cors mode
+            const noCorsResponse = await fetch(logoUrl, { mode: 'no-cors' });
+            // Since we can't access the blob directly in no-cors mode,
+            // we'll just store the URL directly
+            logoCache[crypto.code] = logoUrl;
           }
         } catch (error) {
           console.warn(`Error fetching logo for ${crypto.name}:`, error);
+          // Store the URL directly as fallback
+          logoCache[crypto.code] = logoUrl;
         }
       });
 
@@ -71,7 +78,11 @@ export const CryptoCardGenerator = () => {
 
     // Cleanup function to revoke object URLs
     return () => {
-      Object.values(logoCache).forEach(url => URL.revokeObjectURL(url));
+      Object.values(logoCache).forEach(url => {
+        if (url.startsWith('blob:')) {
+          URL.revokeObjectURL(url);
+        }
+      });
     };
   }, []);
 
