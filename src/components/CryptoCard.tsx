@@ -60,7 +60,7 @@ export const CryptoCard = ({
                 <div className="w-2 h-2 rounded-full hidden" style={{ backgroundColor: color }} />
                 <h2 className="text-white font-bold text-2xl tracking-tight">{name}</h2>
               </div>
-              <p className="text-gray-400 text-sm font-mono tracking-wider">{code}</p>
+              <p className="text-gray-400 text-sm font-mono tracking-wider pl-9">{code}</p>
             </div>
             
             <div className={cn(
