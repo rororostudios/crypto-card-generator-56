@@ -48,7 +48,7 @@ export const CryptoCard = ({
           )}>
             <div className={cn(
               "flex flex-col relative z-20",
-              isVertical ? "items-center" : "",
+              isVertical ? "items-center w-full" : "",
               "flex-1 max-w-[60%]"
             )}>
               <div className={cn(
@@ -73,7 +73,7 @@ export const CryptoCard = ({
               
               <div className={cn(
                 "break-all mt-2",
-                isVertical ? "w-full text-center mt-auto" : ""
+                isVertical ? "w-full text-center px-2" : ""
               )}>
                 <p className="text-gray-400 text-[8px] font-mono leading-tight">{address}</p>
               </div>
