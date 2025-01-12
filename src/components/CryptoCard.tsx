@@ -44,7 +44,7 @@ export const CryptoCard = ({
           
           <div className={cn(
             "relative flex h-full z-10",
-            isVertical ? "flex-col" : "items-start justify-between"
+            isVertical ? "flex-col items-center" : "items-start justify-between"
           )}>
             <div className="flex flex-col relative z-20">
               <div className="flex items-center gap-3 mb-2">
