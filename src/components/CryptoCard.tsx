@@ -77,17 +77,17 @@ export const CryptoCard = ({
                 </div>
               </div>
               
-              <div className="bg-white/90 backdrop-blur-sm rounded-lg inline-flex items-center justify-center
+              <div className="bg-white/90 backdrop-blur-sm rounded-lg inline-flex items-center justify-center p-2
                            shadow-[0_0_15px_rgba(0,0,0,0.1)]
                            transition-transform duration-300
                            group-hover:scale-[1.02]">
                 <div className={cn(
-                  "w-[90px] h-[90px] flex items-center justify-center",
-                  !isVertical && "w-[80px] h-[80px]"
+                  "flex items-center justify-center",
+                  isVertical ? "w-[86px] h-[86px]" : "w-[76px] h-[76px]"
                 )}>
                   <QRCodeSVG
                     value={address}
-                    size={isVertical ? 90 : 80}
+                    size={isVertical ? 86 : 76}
                     level="L"
                   />
                 </div>
