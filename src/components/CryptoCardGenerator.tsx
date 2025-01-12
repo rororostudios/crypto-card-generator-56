@@ -39,29 +39,24 @@ export const CryptoCardGenerator = () => {
 
   // Pre-fetch all logos when component mounts
   useEffect(() => {
+    const fetchLogo = async (crypto: typeof CRYPTOCURRENCIES[0]) => {
+      const logoUrl = `https://cryptologos.cc/logos/${crypto.name.toLowerCase().replace(' ', '-')}-${crypto.code.toLowerCase()}-logo.svg`;
+      
+      try {
+        // Always try no-cors mode first since we know the API has CORS restrictions
+        const response = await fetch(logoUrl, { mode: 'no-cors' });
+        // Since we can't access the response content in no-cors mode,
+        // we'll use the direct URL
+        logoCache[crypto.code] = logoUrl;
+      } catch (error) {
+        console.warn(`Error fetching logo for ${crypto.name}:`, error);
+        // Store the URL directly as fallback
+        logoCache[crypto.code] = logoUrl;
+      }
+    };
+
     const preFetchLogos = async () => {
-      const fetchPromises = CRYPTOCURRENCIES.map(async (crypto) => {
-        const logoUrl = `https://cryptologos.cc/logos/${crypto.name.toLowerCase().replace(' ', '-')}-${crypto.code.toLowerCase()}-logo.svg`;
-        
-        try {
-          // First try with regular fetch
-          const response = await fetch(logoUrl);
-          if (response.ok) {
-            const blob = await response.blob();
-            logoCache[crypto.code] = URL.createObjectURL(blob);
-          } else {
-            // If regular fetch fails, try with no-cors mode
-            const noCorsResponse = await fetch(logoUrl, { mode: 'no-cors' });
-            // Since we can't access the blob directly in no-cors mode,
-            // we'll just store the URL directly
-            logoCache[crypto.code] = logoUrl;
-          }
-        } catch (error) {
-          console.warn(`Error fetching logo for ${crypto.name}:`, error);
-          // Store the URL directly as fallback
-          logoCache[crypto.code] = logoUrl;
-        }
-      });
+      const fetchPromises = CRYPTOCURRENCIES.map(crypto => fetchLogo(crypto));
 
       try {
         await Promise.all(fetchPromises);
@@ -76,14 +71,7 @@ export const CryptoCardGenerator = () => {
 
     preFetchLogos();
 
-    // Cleanup function to revoke object URLs
-    return () => {
-      Object.values(logoCache).forEach(url => {
-        if (url.startsWith('blob:')) {
-          URL.revokeObjectURL(url);
-        }
-      });
-    };
+    // No cleanup needed since we're not creating blob URLs anymore
   }, []);
 
   return (
